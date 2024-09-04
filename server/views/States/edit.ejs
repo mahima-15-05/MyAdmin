@@ -1,0 +1,126 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h3><b>Edit State</b></h3>
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="eaproGrpAbt"
+        action="/state/edit/<%=data.id%>"
+        method="post"
+        enctype="application/x-www-form-urlencoded"
+      >
+      <!-- select country -->
+      <div>
+        <label for="country">Select Country</label>
+      </div>
+      
+      <select onchange="loadState(this.value)" class="form-select form-control" name="country_id" id="country">
+      <option <% if (data.countries && data.country_id === data.countries.id) { %> selected <% } %> value="<%= data.country_id %>">
+        <% if (data.countries) { %>
+          <%= data.countries.name %>
+        <% } else { %>
+          Select Country
+        <% } %>
+      </option>
+    </select>
+
+
+      <div class="row mb-3">
+       
+        
+        <div >
+          <input
+          type="hidden"
+            id="id"
+            type="text"
+            name="id"
+            value="<%=data.id%>"
+            
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <label for="name" class="col-sm-2 col-form-label"><b> Name</b></label>
+        </div>
+        
+        <div >
+          <input
+            id="name"
+            type="text"
+            name="name"
+            value="<%=data.name%>"
+            required
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+       
+        
+        <div >
+          <input
+          type="hidden"
+            id="id"
+            type="text"
+            name="id"
+            value="<%=data.id%>"
+            
+            class="form-control"
+          />
+        </div>
+      </div>
+     
+      
+      
+     
+    
+       
+
+
+
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+  // fetch country details
+  var country_select = document.getElementById('country')
+  // Fetch countries and populate countries select box
+fetch("/fetch-country")
+  .then((response) => response.json())
+  .then((country) => {
+    // console.log("blogCategory",blogCategory)
+    country.forEach((country) => {
+      const option = document.createElement("option");
+      option.value = country.id;
+      option.textContent = country.name;
+      country_select.appendChild(option);
+    });
+  });
+
+
+
+
+    const editForm = document.getElementById('eaproGrpAbt')
+    
+    editForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+   
+    const data = {
+      "id":document.getElementById('id').value,
+      "country_id":document.getElementById('country').value,
+      "name":document.getElementById('name').value,
+      
+    }
+            
+    ajaxTextRequest('eaproGrpAbt', `/state/edit/:id`, 'POST',data);
+});
+
+</script>
+<%- include('../layout/footer'); %>

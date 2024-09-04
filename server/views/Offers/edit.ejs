@@ -1,0 +1,142 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h3><b>Edit Offers & Discounts</b></h3>
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="eaproGrpAbt"
+        action="/offer-and-discount/edit/<%=data.id%>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="row mb-3">
+          <div >
+            <input
+              id="id"
+              type="hidden"
+              name="id"
+              value="<%= data ? data.id  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="offer_name"><b>Offer Name</b></label>
+          </div>
+          <div >
+            <input
+              id="offer_name"
+              type="text"
+              name="offer_name"
+              value="<%= data ? data.offer_name  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="discount_percentage" class="col-sm-2 col-form-label"><b>Discount Percentage</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="discount_percentage"
+              type="text"
+              name="discount_percentage"
+              required
+              class="form-control"
+              value="<%= data ? data.discount_percentage  : '' %>"
+            />
+          </div>
+        </div>
+
+        
+       
+        
+        
+        <div class="row mb-3">
+          <div>
+          <label for="description" class="col-sm-2 col-form-label"><b>Description</b></label>  
+          </div>
+          
+          <div >
+            <textarea
+              id="description"
+              rows="8"
+              cols="50"
+              type="text"
+              value="<%= data ? data.description : '' %>"
+              name="description"
+              required
+              class="form-control summernote"
+            >
+<%= data ? data.description : '' %></textarea
+            >
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div>
+            <label for="valid_from" class="col-sm-2 col-form-label"><b>Valid From</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="valid_from"
+              class="form-control"
+              type="date"
+              id="valid_from"
+              value="<%= data ? data.valid_from : '' %>"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="valid_to" class="col-sm-2 col-form-label"><b>Valid To</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="valid_to"
+              class="form-control"
+              type="date"
+              id="valid_to"
+              value="<%= data ? data.valid_to : '' %>"
+            />
+          </div>
+        </div>
+       
+
+
+
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+    const editForm = document.getElementById('eaproGrpAbt')
+    
+    editForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+   
+    const data = {
+      "id":document.getElementById('id').value,
+      "description": document.getElementById("description").value,
+      "offer_name": document.getElementById("offer_name").value,
+      "discount_percentage": document.getElementById("discount_percentage").value,
+      "valid_from": document.getElementById("valid_from").value,
+      "valid_to":document.getElementById("valid_to").value
+    }
+            
+    ajaxTextRequest('eaproGrpAbt', `/offer-and-discount/edit/:id`, 'POST',data);
+});
+
+</script>
+<%- include('../layout/footer'); %>

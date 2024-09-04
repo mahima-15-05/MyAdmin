@@ -1,0 +1,88 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="testimonials"
+        action="/our-team/add"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="row mb-3">
+          <div>
+            <label for="name" class="col-sm-2 col-form-label"><b>Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="name"
+              type="text"
+              name="name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+       
+        <div class="row mb-3">
+          <div>
+            <label for="designation" class="col-sm-2 col-form-label"><b>Designation</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="designation"
+              type="text"
+              name="designation"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        
+       
+       
+
+        <div class="row mb-3">
+          <div>
+            <label for="image" class="col-sm-2 col-form-label"><b>Image</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="image"
+              accept=".jpg,jpeg,.png"
+              class="form-control"
+              type="file"
+              id="fileInput"
+            />
+          </div>
+        </div>
+
+        <button class="btn btn-success w-20" type="submit">Add</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+
+<script>
+
+
+  const HomeBanner = document.getElementById("testimonials");
+  HomeBanner.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData();
+    const fileInput = document.getElementById("fileInput");
+
+    var file = fileInput.files[0];
+    formData.append("image", file);
+    formData.append("designation", document.getElementById("designation").value);
+    formData.append("name", document.getElementById("name").value);
+    ajaxRequest("testimonials", "/our-team/add", "POST", formData);
+  });
+</script>
+<%- include('../layout/footer'); %>
+<script></script>

@@ -1,0 +1,197 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h2><b>User Management</b></h2>
+    <!-- General Form Elements -->
+    <div>
+      <form
+        id="eaproGrpAbt"
+        action="/user-management/edit/<%= data.id%>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="row mb-3">
+          <div>
+            <input
+              id="id"
+              type="hidden"
+              name="id"
+              value="<%= data ? data.id  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div>
+            <label for="first_name" class="col-sm-2 col-form-label"><b>First Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="first_name"
+              type="text"
+              value="<%= data.first_name%>"
+              name="first_name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+       
+        <div class="row mb-3">
+          <div>
+            <label for="last_name" class="col-sm-2 col-form-label"><b>Last Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="last_name"
+              type="text"
+              value="<%= data.last_name%>"
+              name="last_name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="mobile" class="col-sm-2 col-form-label"><b>Mobile</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="mobile"
+              value = "<%= data ? data.mobile : ''%>"
+              type="text"
+              name="mobile"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="email" class="col-sm-2 col-form-label"><b>Email</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="email"
+              value="<%= data ? data.email : ''%>"
+              type="email"
+              name="email"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="dob" class="col-sm-2 col-form-label"><b>DOB</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="dob"
+              value="<%= data ? data.dob : ''%>"
+              type="date"
+              name="dob"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="gender" class="col-sm-2 col-form-label"><b>Gender</b></label>
+          </div>
+          
+          
+          <select class="form-control" name="gender" id="gender">
+            <option value="" disabled>Select gender</option>
+            <option value="male" <% if ( data.gender === 'male') { %> selected <% } %> >Male</option>
+            <option value="female" <% if ( data.gender === 'female') { %> selected <% } %>>Female</option>
+            <option value="others" <% if ( data.gender === 'others') { %> selected <% } %>>Others</option>
+        </select>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="address" class="col-sm-2 col-form-label"><b>Address</b></label>
+          </div>
+          
+          <div >
+            <textarea
+              id="address"
+              type="text"
+              name="address"
+              required
+              class="form-control summernote"
+            ><%= data ? data.address : ''%></textarea>
+          </div>
+        </div>
+        
+       
+       
+
+        <div class="row mb-3">
+          <div>
+            <label for="profile_photo" class="col-sm-2 col-form-label"><b>Profile Photo</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="profile_photo"
+              accept=".jpg,jpeg,.png"
+              class="form-control"
+              type="file"
+              value="<%= data? data.profile_photo : '' %>"
+              id="fileInput"
+            />
+          </div>
+        </div>
+        <!-- show profile photo -->
+        <div class="row mb-3">
+          <div>
+            <img
+              src="../../myUploads/User/<%=data ? data.profile_photo : '' %>"
+              alt=""
+              height="80px"
+              width="80px"
+            />
+          </div>
+        </div>
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+  const editForm = document.getElementById("eaproGrpAbt");
+
+  editForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData();
+    const fileInput = document.getElementById("fileInput");
+    var id = document.getElementById("id").value;
+    console.log("ID FR" + id);
+    var file = fileInput.files[0];
+    formData.append("profile_photo", file);
+    formData.append("last_name", document.getElementById("last_name").value);
+    formData.append("first_name", document.getElementById("first_name").value);
+    formData.append("mobile", document.getElementById("mobile").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("dob", document.getElementById("dob").value);
+    formData.append("gender", document.getElementById("gender").value);
+    formData.append("address", document.getElementById("address").value);
+    formData.append("id", id);
+    console.log("Form Data ", formData);
+
+    ajaxRequest("eaproGrpAbt", `/user-management/edit/:id`, "POST", formData);
+  });
+</script>
+<%- include('../layout/footer'); %>

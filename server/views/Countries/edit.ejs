@@ -1,0 +1,143 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h3><b>Edit Country</b></h3>
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="eaproGrpAbt"
+        action="/country/edit/<%=data.id%>"
+        method="post"
+        enctype="application/x-www-form-urlencoded"
+      >
+      <div class="row mb-3">
+       
+        
+        <div >
+          <input
+          type="hidden"
+            id="id"
+            type="text"
+            name="id"
+            value="<%=data.id%>"
+            
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <label for="name" class="col-sm-2 col-form-label"><b> Name</b></label>
+        </div>
+        
+        <div >
+          <input
+            id="name"
+            type="text"
+            name="name"
+            value="<%=data.name%>"
+            required
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <label for="name" class="col-sm-2 col-form-label"><b>Short Name</b></label>
+        </div>
+        
+        <div >
+          <input
+            id="short_name"
+            type="text"
+            value="<%=data.sort_name%>"
+            name="sort_name"
+            required
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <label for="numeric_code" class="col-sm-2 col-form-label"><b>Numeric code</b></label>
+        </div>
+        
+        <div >
+          <input
+            id="numeric_code"
+            value="<%=data.numeric_code%>"
+            type="text"
+            name="numeric_code"
+            required
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <label for="phone_code" class="col-sm-2 col-form-label"><b>Phone code</b></label>
+        </div>
+        
+        <div >
+          <input
+            id="phone_code"
+            value="<%=data.phone_code%>"
+            type="text"
+            name="phone_code"
+            required
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div>
+          <label for="capital" class="col-sm-2 col-form-label"><b>Capital</b></label>
+        </div>
+        
+        <div >
+          <input
+            id="capital"
+            value="<%=data.capital%>"
+            type="text"
+            name="capital"
+            required
+            class="form-control"
+          />
+        </div>
+      </div>
+     
+     
+     
+
+      
+       
+
+
+
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+    const editForm = document.getElementById('eaproGrpAbt')
+    
+    editForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+   
+    const data = {
+      "name": document.getElementById("name").value,
+      "id": document.getElementById("id").value,
+      "sort_name": document.getElementById("short_name").value,
+      "numeric_code": document.getElementById("numeric_code").value,
+      "phone_code": document.getElementById("phone_code").value,
+      "capital":document.getElementById("capital").value
+    }
+            
+    ajaxTextRequest('eaproGrpAbt', `/country/edit/:id`, 'POST',data);
+});
+
+</script>
+<%- include('../layout/footer'); %>

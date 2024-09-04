@@ -1,0 +1,69 @@
+<%- include('../layout/header'); %>
+<%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1><b>Our Team</b></h1>
+      <nav>
+        
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="d-flex justify-content-end">
+        <a href="/our-team/add"><button class="btn btn-success">Add</button></a>
+        
+    </div>
+      <div class="row">
+
+       
+
+        <table class="table datatable">
+            <thead>
+             
+              <tr>
+                
+                
+                <th>Sr.no</th>
+                <th scope="col">Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Designation</th>
+                <th>Status</th>
+                <th>Status Change</th>
+                <th>Action</th>
+              </tr>
+              
+              
+            </thead>
+            <tbody>
+              <% var reversedData = data.slice().reverse(); %>
+              <% var serial_no = 1%>
+              <%reversedData.forEach(function(data){%>
+              <tr>
+                <td><%= serial_no%></td>
+                <td><%= data.name%></td>
+                <td><img src="../.././myUploads/OurTeam/<%= data ? data.image : ''%>" height="200px" width="300px" alt=""></td>
+                <td><%= data.designation%></td>
+                <td><%= data.status%></td>
+
+                <td><button onclick='updateStatus(`<%=data.id%>`, `<%=data.status%>`,`/our-team/status-upd`)' class="btn btn-primary"><a href="/update-status/<%data.id%>"></a><%= data.status ? 'Deactivate' : 'Activate' %></button></td>
+                <td><button class="btn" onclick="deleteRecord(`<%=data.id%>`, '/our-team/delete')"><a href="#"><i class="bi bi-trash"></i></a></button><button class="btn"><a href="/our-team/edit/<%=data.id%>"><i class="bi bi-pen"></i></a></button></td>
+              </tr>
+              <% serial_no++ %>
+              <%})%>
+            
+            
+            </tbody>
+          </table>
+       
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<%- include('../layout/footer'); %>
+
+
+<!--  -->

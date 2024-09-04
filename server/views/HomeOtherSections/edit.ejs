@@ -1,0 +1,276 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h2 class="mb-5"><b >Home Other Sections</b></h2>
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="eaproGrpAbt"
+        action="/home-other-section"
+        method="post"
+        enctype="multipart/form-data"
+      >
+       <h4 class="mb-5 mt-5"><b>Invite Section</b></h4>
+        <div class="row mb-3">
+          <div >
+            <label for="invite_image"><b>Invite Image</b></label> 
+          </div>
+          <div >
+            <input
+              id="invite_image"
+              type="file"
+              accept=".png,.jpeg,jpg"
+              name="invite_image"
+              value="<%= data ? data.invite_image  : '' %>"
+              
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div>
+          <img class="mt-2 mb-4"  src="../../myUploads/HomeOtherSections/<%= data ? data.invite_image : '' %>" height="80px" width="100px" alt="">
+        </div>
+       
+        <div class="row mb-3">
+          <div>
+            <label for="invite_heading"><b>Invite Heading</b></label>
+          </div>
+          <div >
+            <input
+              id="invite_heading"
+              type="text"
+              name="invite_heading"
+              value="<%= data ? data.invite_heading  : '' %>"
+              
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="invite_subheading"><b>Invite Subheding</b></label>
+          </div>
+          <div >
+            <input
+              id="invite_subheading"
+              type="text"
+              name="invite_subheading"
+              value="<%= data ? data.invite_subheading  : '' %>"
+              
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="invite_description"><b>Invite Description</b></label>
+          </div>
+          <div >
+            <textarea
+              id="invite_description"
+              type="text"
+              name="invite_description"
+              value="<%= data ? data.invite_description  : '' %>"
+              
+              class="form-control summernote"
+            ><%= data ? data.invite_description  : '' %></textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="invite_link"><b>Invite Link</b></label>
+          </div>
+          <div >
+            <input
+              id="invite_link"
+              type="text"
+              name="invite_link"
+              value="<%= data ? data.invite_link  : '' %>"
+              
+              class="form-control"
+            />
+          </div>
+        </div>
+        <br><hr>
+ <h4 class="mt-5 mb-5"><b>Email  Section</b></h4>
+
+ <div class="row mb-3">
+  <div>
+    <label for="email_sec_banner"><b>Email Section Image</b></label> 
+  </div>
+  <div >
+    <input
+      id="email_sec_banner"
+      accept=".png,.jpeg,jpg"
+      type="file"
+      name="email_sec_banner"
+      value="<%= data ? data.email_sec_banner  : '' %>"
+      
+      class="form-control"
+    />
+  </div>
+</div>
+<div>
+  <img class="mt-2 mb-4" src="../../myUploads/HomeOtherSections/<%= data ? data.email_sec_banner : '' %>" height="80px" width="100px" alt="">
+</div>
+
+<div class="row mb-3">
+  <div>
+    <label for="email_sec_heading"><b>Email section Heading</b></label>
+  </div>
+  <div >
+    <input
+      id="email_sec_heading"
+      type="text"
+      name="email_sec_heading"
+      value="<%= data ? data.email_sec_heading  : '' %>"
+      
+      class="form-control"
+    />
+  </div>
+</div>
+<div class="row mb-3">
+  <div>
+    <label for="email_sec_subtitle"><b>Email section Subheding</b></label>
+  </div>
+  <div >
+    <input
+      id="email_sec_subtitle"
+      type="text"
+      name="email_sec_subtitle"
+      value="<%= data ? data.email_sec_subtitle  : '' %>"
+      
+      class="form-control"
+    />
+  </div>
+</div>
+<div class="row mb-3">
+  <div>
+    <label for="email_sec_summary"><b>Email Section Description</b></label>
+  </div>
+  <div >
+    <textarea
+      id="email_sec_summary"
+      type="text"
+      name="email_sec_summary"
+      value="<%= data ? data.email_sec_summary  : '' %>"
+      
+      class="form-control summernote"
+    ><%= data ? data.email_sec_summary  : '' %></textarea>
+  </div>
+</div>     
+  <br><hr>   
+  <h4 class="mt-5 mb-5"><b>Connect Section </b></h4>   
+
+  <div class="row mb-3">
+    <div>
+      <label for="connect_section_banner"><b>Connect Setion Banner</b></label> 
+    </div>
+    <div >
+      <input
+        id="connect_section_banner"
+        type="file"
+        accept=".png,.jpeg,jpg"
+        name="connect_section_banner"
+        value="<%= data ? data.connect_section_banner  : '' %>"
+        
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div>
+    <img  class="mt-2 mb-4" src="../../myUploads/HomeOtherSections/<%= data ? data.connect_section_banner : '' %>" height="80px" width="100px" alt="">
+  </div>
+  
+  <div class="row mb-3">
+    <div>
+      <label for="connect_sec_heading"><b>Connet Section Heading</b></label>
+    </div>
+    <div >
+      <input
+        id="connect_sec_heading"
+        type="text"
+        name="connect_sec_heading"
+        value="<%= data ? data.connect_sec_heading  : '' %>"
+        
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div>
+      <label for="connect_sec_link"><b>Connet Section Ling</b></label>
+    </div>
+    <div >
+      <input
+        id="connect_sec_link"
+        type="text"
+        name="connect_sec_link"
+        value="<%= data ? data.connect_sec_link  : '' %>"
+        
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div>
+      <label for="connect_sec_description"><b>Connect Section Description</b></label>
+    </div>
+    <div >
+      <textarea
+        id="connect_sec_description"
+        type="text"
+        name="connect_sec_description"
+        value="<%= data ? data.connect_sec_description  : '' %>"
+        
+        class="form-control summernote"
+      ><%= data ? data.connect_sec_description  : '' %></textarea>
+    </div>
+  </div>     
+    <br><hr>   
+       
+
+        
+        
+
+
+
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+    const editForm = document.getElementById('eaproGrpAbt')
+    
+    editForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData();
+    const invite_image = document.getElementById("invite_image").files[0];
+    const connect_section_banner = document.getElementById("connect_section_banner").files[0];
+    const email_sec_banner = document.getElementById("email_sec_banner").files[0];
+    
+            formData.append("invite_image", invite_image);
+            formData.append("connect_section_banner", connect_section_banner);
+            formData.append("email_sec_banner", email_sec_banner);
+            
+            formData.append("invite_heading", document.getElementById("invite_heading").value);
+            formData.append("invite_subheading", document.getElementById("invite_subheading").value);
+            formData.append("invite_description", document.getElementById("invite_description").value);
+            formData.append("invite_link", document.getElementById("invite_link").value);
+            formData.append("connect_sec_heading", document.getElementById("connect_sec_heading").value);
+            formData.append("connect_sec_description", document.getElementById("connect_sec_description").value);
+            formData.append("connect_sec_link", document.getElementById("connect_sec_link").value);
+            formData.append("email_sec_heading", document.getElementById("email_sec_heading").value);
+            formData.append("email_sec_summary", document.getElementById("email_sec_summary").value);
+            formData.append("email_sec_subtitle", document.getElementById("email_sec_subtitle").value);
+           
+            console.log("Form Data ",formData);
+            
+    ajaxRequest('eaproGrpAbt', `/home-other-section`, 'POST',formData);
+});
+
+</script>
+<%- include('../layout/footer'); %>

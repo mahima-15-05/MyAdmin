@@ -1,0 +1,98 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="testimonials"
+        action="/state/add"
+        method="post"
+        enctype="application/x-www-form-urlencoded"
+      >
+      <div class="row mb-3">
+        <div>
+           <label for="Country" class="col-sm-2 col-form-label">Country</label>
+        </div>
+        <div >
+          <select class="form-select form-control" name="country_id" id="country_id">
+          <option >Select Country</option></select>
+        </div>
+       
+        
+        
+        
+      </div>
+        <div class="row mb-3">
+          <div>
+            <label for="name" class="col-sm-2 col-form-label"><b> Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="name"
+              type="text"
+              name="name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="country_code" class="col-sm-2 col-form-label"><b>country Code</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="country_code"
+              type="text"
+              name="country_code"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <button class="btn btn-success w-20" type="submit">Add</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+
+
+<script>
+    const Country = document.getElementById("country_id");
+
+// Fetch countries and populate countries select box
+fetch("/fetch-country")
+  .then((response) => response.json())
+  .then((country) => {
+    // console.log("blogCategory",blogCategory)
+    country.forEach((data) => {
+      const option = document.createElement("option");
+      option.value = data.id;
+      option.textContent = data.name;
+      Country.appendChild(option);
+    });
+  });
+
+
+
+  const HomeBanner = document.getElementById("testimonials");
+  HomeBanner.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const data = {
+      "name": document.getElementById("name").value,
+      "country_code": document.getElementById("country_code").value,
+      "country_id": document.getElementById("country_id").value,
+     
+    }
+    
+
+    ajaxTextRequest("testimonials", "/state/add", "POST", data);
+  });
+</script>
+<%- include('../layout/footer'); %>
+<script></script>

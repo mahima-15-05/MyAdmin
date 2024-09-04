@@ -1,0 +1,177 @@
+<%- include('../layout/header'); %>
+<%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1><b>City List</b></h1>
+      <nav>
+        
+      </nav>
+    </div><!-- End Page Title -->
+<!-- select state -->
+    <form action="/city" method="get"  id="select_country_state">
+      <div>
+      <div >
+        <div>
+           <label for="country" class="col-sm-2 col-form-label">Select Country</label>
+        </div>
+        <div >
+          <select onchange="loadState(this.value)" class="form-select form-control" name="country_id" id="country">
+          <option  >Select Country</option>
+          <% countries.forEach(function(country) { %>
+            <option value="<%= country.id %>"
+               <% if (country.id == countryId) { %> selected <% } %>><%= country.name %>
+              </option>
+        <% }); %>
+        </select>
+    
+          
+        </div>
+      </div>
+    </div >
+    <div>
+      <div >
+        <div>
+           <label for="country" class="col-sm-2 col-form-label">Select State</label>
+        </div>
+        <div >
+          <select disabled class="form-select form-control" name="state_id" id="state">
+          <option >Select State</option>
+          <%states.forEach(function(state) { %>
+            <option value="<%= state.id %>"
+               <% if (state.id == stateId) { %> selected <% } %>><%= state.name %>
+              </option>
+        <% }); %>
+          
+           
+          </select>
+        </select>
+        </div>
+      </div>
+    </div class="mt-3">
+    <div class="mb-3"><button class="btn btn-primary m-3">Submit</button></div>
+   
+    </form>
+<!-- select city -->
+
+
+
+
+    <section class="section dashboard">
+      <div class="d-flex justify-content-end">
+        <a href="/city/add"><button class="btn btn-success">Add</button></a>
+        
+    </div>
+    
+      <div class="row">
+
+       
+
+        <table class="table datatable" id="stateTable">
+            <thead>
+             
+              <tr>
+                
+                
+                <th>Sr.no</th>
+                <th scope="col">Name</th>
+                <th>Status</th>
+                <th>Status Change</th>
+                <th>Action</th>
+              </tr>
+              
+              
+            </thead>
+            <tbody>
+              <% var reversedData = data.slice().reverse(); %>
+              <% var serial_no = 1%>
+              <%reversedData.forEach(function(data){%>
+              <tr>
+                <td><%= serial_no%></td>
+                <td ><%= data.name%></td>
+                <td ><%= data.status%></td>
+
+                <td><button onclick='updateStatus(`<%=data.id%>`, `<%=data.status%>`,`/city/status-upd`)' class="btn btn-primary"><a href="/update-status/<%data.id%>"></a><%= data.status ? 'Deactivate' : 'Activate' %></button></td>
+                <td><button class="btn" onclick="deleteRecord(`<%=data.id%>`, '/city/delete')"><a href="#"><i class="bi bi-trash"></i></a></button><button class="btn"><a href="/city/edit/<%=data.id%>"><i class="bi bi-pen"></i></a></button></td>
+              </tr>
+              <% serial_no++ %>
+              <%})%>
+            
+            
+            </tbody>
+          </table>
+       
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+<script>
+    const country_select = document.getElementById("country");
+
+
+
+  // load state
+  function loadState(countryId) {
+    const urlParams = new URLSearchParams(window.location.search);
+
+// Get the value of the state_id parameter
+const stateId = urlParams.get('state_id');
+    // console.log(countryId);
+    var stateSelect = document.getElementById("state");
+    console.log(state);
+     stateSelect.disabled = false;
+     stateSelect.innerHTML = "<option value=''>Loading...</option>";
+
+    fetch("/state/get?countryId=" + countryId)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        stateSelect.innerHTML =
+          "<option value=''>Select state</option>";
+      
+        if (data.length === 0) {
+          stateSelect.disabled = true;
+          return;
+        }
+        
+        stateSelect.disabled = false;
+        console.log("STate",stateId)
+        
+        data.forEach((state) => {
+          var option = document.createElement("option");
+                option.value = state.id;
+                option.textContent = state.name;
+                console.log("satate_id ",state.id);
+                console.log("satateId ",stateId);
+                
+               if(state.id===parseInt(stateId)){
+                option.disabled=false
+                option.selected=true
+                
+               }
+                stateSelect.appendChild(option);
+          
+            
+           
+        });
+       
+      })
+      .catch((error) => {
+        console.error("Error fetching states:", error);
+        stateSelect.innerHTML =
+          "<option value=''>Error loading states</option>";
+      });
+  }
+
+
+
+
+  // set filtered data
+  
+</script>
+<%- include('../layout/footer'); %>
+
+
+<!--  -->

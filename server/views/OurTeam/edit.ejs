@@ -1,0 +1,119 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h2><b>Edit Testimonials</b></h2>
+    <!-- General Form Elements -->
+    <div>
+      <form
+        id="eaproGrpAbt"
+        action="/state/edit/<%=data.id%>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="row mb-3">
+          <div>
+            <input
+              id="id"
+              type="hidden"
+              name="id"
+              value="<%= data ? data.id  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="name"><b>Name</b></label>
+          </div>
+          <div>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value="<%= data ? data.name  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div>
+            <label for="designation" class="col-sm-2 col-form-label"
+              ><b>Designation</b></label
+            >
+          </div>
+
+          <div>
+            <input
+              id="designation"
+              type="text"
+              value="<%= data ? data.designation : '' %>"
+              name="designation"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div>
+            <label for="image" class="col-sm-2 col-form-label"
+              ><b>Image</b></label
+            >
+          </div>
+
+          <div>
+            <input
+              id="image"
+              name="image"
+              accept=".png,.jpg,.jpeg"
+              value="<%=data  ? data.image : ''%>"
+              class="form-control"
+              type="file"
+              id="image"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <img
+              src="../../myUploads/OurTeam/<%= data ? data.image : '' %>"
+              alt=""
+              height="80px"
+              width="80px"
+            />
+          </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+  const editForm = document.getElementById("eaproGrpAbt");
+
+  editForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData();
+    const fileInput = document.getElementById("image");
+    var id = document.getElementById("id").value;
+    console.log("ID FR" + id);
+    var file = fileInput.files[0];
+    formData.append("image", file);
+    formData.append(
+      "designation",
+      document.getElementById("designation").value
+    );
+    formData.append("name", document.getElementById("name").value);
+    formData.append("id", id);
+    console.log("Form Data ", formData);
+
+    ajaxRequest("eaproGrpAbt", `/our-team/edit/:id`, "POST", formData);
+  });
+</script>
+<%- include('../layout/footer'); %>

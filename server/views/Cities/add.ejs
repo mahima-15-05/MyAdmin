@@ -1,0 +1,132 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="city"
+        action="/city/add"
+        method="post"
+        enctype="application/x-www-form-urlencoded"
+      >
+      <!-- country select -->
+      <div class="row mb-3">
+        <div>
+           <label for="Country" class="col-sm-2 col-form-label">Country</label>
+        </div>
+        <div >
+          <select onchange="loadState(this.value)" class="form-select form-control" name="country_id" id="country_id">
+          <option >Select Country</option></select>
+        </div>
+      </div>
+
+      <!-- state select -->
+      <div class="row mb-3">
+        <div>
+           <label for="State" class="col-sm-2 col-form-label">State</label>
+        </div>
+        <div >
+          <select  class="form-select form-control" name="state_id" id="state_id">
+          <option >Select State</option></select>
+        </div>
+      </div>
+
+        <div class="row mb-3">
+          <div>
+            <label for="name" class="col-sm-2 col-form-label"><b>Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="name"
+              type="text"
+              name="name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        
+       
+        
+       
+
+
+        <button class="btn btn-success w-20" type="submit">Add</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script>
+  // fetching data 
+  const country_select = document.getElementById("country_id");
+
+// Fetch countries and populate countries select box
+fetch("/fetch-country")
+  .then((response) => response.json())
+  .then((country) => {
+    // console.log("blogCategory",blogCategory)
+    country.forEach((country) => {
+      const option = document.createElement("option");
+      option.value = country.id;
+      option.textContent = country.name;
+      country_select.appendChild(option);
+    });
+  });
+
+  // load state
+  function loadState(countryId) {
+    console.log(countryId);
+
+    var stateSelect = document.getElementById("state_id");
+    // console.log(state);
+     stateSelect.disabled = false;
+     stateSelect.innerHTML = "<option value=''>Loading...</option>";
+
+    fetch("/state/get?countryId=" + countryId)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        stateSelect.innerHTML =
+          "<option value=''>Select state</option>";
+        if (data.length === 0) {
+          stateSelect.disabled = true;
+          return;
+        }
+        stateSelect.disabled = false;
+        data.forEach((state) => {
+          stateSelect.innerHTML +=
+            "<option value='" +
+            state.id +
+            "'>" +
+            state.name +
+            "</option>";
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching states:", error);
+        stateSelect.innerHTML =
+          "<option value=''>Error loading states</option>";
+      });
+  }
+
+
+
+
+  const HomeBanner = document.getElementById("city");
+  HomeBanner.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const data = {
+      "country_id": document.getElementById("country_id").value,
+      "state_id": document.getElementById("state_id").value,
+      "name": document.getElementById("name").value,
+    }
+    
+
+    ajaxTextRequest("city", "/city/add", "POST", data);
+  });
+</script>
+<%- include('../layout/footer'); %>

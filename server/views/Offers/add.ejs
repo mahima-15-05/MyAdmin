@@ -1,0 +1,119 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="testimonials"
+        action="/offer-and-discount/add"
+        method="post"
+        enctype="application/x-www-form-urlencoded"
+      >
+        <div class="row mb-3">
+          <div>
+            <label for="offer_name" class="col-sm-2 col-form-label"><b>Offer Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="offer_name"
+              type="text"
+              name="offer_name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="discount_percentage" class="col-sm-2 col-form-label"><b>Discount Percentage</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="discount_percentage"
+              type="text"
+              name="discount_percentage"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+       
+        <div class="row mb-3">
+          <div>
+            <label for="review" class="col-sm-2 col-form-label"><b>Description</b></label>
+          </div>
+          
+          <div >
+            <textarea
+              id="description"
+              rows="7"
+              cols="40"
+              type="text"
+              name="description"
+              required
+              class="form-control summernote"
+            ></textarea>
+          </div>
+        </div>
+       
+
+        <div class="row mb-3">
+          <div>
+            <label for="valid_from" class="col-sm-2 col-form-label"><b>Valid From</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="valid_from"
+              class="form-control"
+              type="date"
+              id="valid_from"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="valid_to" class="col-sm-2 col-form-label"><b>Valid To</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="valid_to"
+              class="form-control"
+              type="date"
+              id="valid_to"
+            />
+          </div>
+        </div>
+
+        <button class="btn btn-success w-20" type="submit">Add</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+
+<script>
+
+
+  const HomeBanner = document.getElementById("testimonials");
+  HomeBanner.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const data = {
+      "description": document.getElementById("description").value,
+      "offer_name": document.getElementById("offer_name").value,
+      "discount_percentage": document.getElementById("discount_percentage").value,
+      "valid_from": document.getElementById("valid_from").value,
+      "valid_to":document.getElementById("valid_to").value
+    }
+    
+
+    ajaxTextRequest("testimonials", "/offer-and-discount/add", "POST", data);
+  });
+</script>
+<%- include('../layout/footer'); %>
+<script></script>

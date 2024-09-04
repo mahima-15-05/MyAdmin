@@ -1,0 +1,161 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <h2><b>Edit Testimonials</b></h2>
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="eaproGrpAbt"
+        action="/testimonials/edit/<%=data.id%>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="row mb-3">
+          <div >
+            <input
+              id="id"
+              type="hidden"
+              name="id"
+              value="<%= data ? data.id  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="name"><b>Name</b></label>
+          </div>
+          <div >
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value="<%= data ? data.name  : '' %>"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        
+       
+        
+        
+        <div class="row mb-3">
+          <div>
+          <label for="review_heading" class="col-sm-2 col-form-label"><b>Review Heading</b></label>  
+          </div>
+          
+          <div >
+            <input
+              id="review_heading"
+              type="text"
+              value="<%= data ? data.review_heading : '' %>"
+              name="review_heading"
+              required
+              class="form-control"
+           />
+
+            
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+          <label for="review" class="col-sm-2 col-form-label"><b>Review</b></label>  
+          </div>
+          
+          <div >
+            <textarea
+              id="review"
+              rows="8"
+              cols="50"
+              type="text"
+              value="<%= data ? data.review : '' %>"
+              name="review"
+              required
+              class="form-control summernote"
+            >
+<%= data ? data.review : '' %></textarea
+            >
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+          <label for="profession" class="col-sm-2 col-form-label"><b>Profession</b></label>  
+          </div>
+          
+          <div >
+            <input
+              id="profession"
+              type="text"
+              value="<%= data ? data.profession : '' %>"
+              name="profession"
+              required
+              class="form-control"
+           />
+
+            
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div>
+           <label for="image" class="col-sm-2 col-form-label"><b>Image</b></label> 
+          </div>
+          
+          <div >
+            <input
+              id="image"
+              name="image"
+              value="<%=data  ? data.image : ''%>"
+              class="form-control"
+              type="file"
+              id="image"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <img
+            src="../../myUploads/Testimonials/<%= data.image %>"
+              alt=""
+              height="80px"
+              width="80px"
+            />
+          </div>
+        
+        </div>
+
+
+
+        <button class="btn btn-success" type="submit">Update</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+<script>
+    const editForm = document.getElementById('eaproGrpAbt')
+    
+    editForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData();
+    const fileInput = document.getElementById("image");
+            var id = document.getElementById('id').value;
+            console.log("ID FR"+id)
+            var file = fileInput.files[0];
+            formData.append("image", file);
+            formData.append("review", document.getElementById("review").value);
+            formData.append("profession", document.getElementById("profession").value);
+            formData.append("review_heading", document.getElementById("review_heading").value);
+            formData.append("name", document.getElementById("name").value);
+            formData.append("id", id);
+            console.log("Form Data ",formData);
+            
+    ajaxRequest('eaproGrpAbt', `/testimonials/edit/:id`, 'POST',formData);
+});
+
+</script>
+<%- include('../layout/footer'); %>

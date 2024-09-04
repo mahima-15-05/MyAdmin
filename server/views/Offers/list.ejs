@@ -1,0 +1,73 @@
+<%- include('../layout/header'); %>
+<%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1><b>Offers And Discounts</b></h1>
+      <nav>
+        
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="d-flex justify-content-end">
+        <a href="/offer-and-discount/add"><button class="btn btn-success">Add</button></a>
+        
+    </div>
+      <div class="row">
+
+       
+
+        <table class="table datatable">
+            <thead>
+             
+              <tr>
+                
+                
+                <th>Sr.no</th>
+                <th scope="col">Offer Name</th>
+                <th scope="col">Discount Percentage</th>
+                <th>Description</th>
+                <th>Valid From</th>
+                <th>Valid To</th>
+                <th>Status</th>
+                <th>Status Change</th>
+                <th>Action</th>
+              </tr>
+              
+              
+            </thead>
+            <tbody>
+              <% var reversedData = data.slice().reverse(); %>
+              <% var serial_no = 1%>
+              <%reversedData.forEach(function(data){%>
+              <tr>
+                <td><%= serial_no%></td>
+                <td><%= data.offer_name%></td>
+                <td><%=data.discount_percentage%></td>
+                <td><%-data.description%></td>
+                <td><%=data.valid_from%></td>
+                <td><%=data.valid_to%></td>
+                <td><%= data.status%></td>
+
+                <td><button onclick='updateStatus(`<%=data.id%>`, `<%=data.status%>`,`/offer-and-discount/status-upd`)' class="btn btn-primary"><a href="/update-status/<%data.id%>"></a><%= data.status ? 'Deactivate' : 'Activate' %></button></td>
+                <td><button class="btn" onclick="deleteRecord(`<%=data.id%>`, '/offer-and-discount/delete')"><a href="#"><i class="bi bi-trash"></i></a></button><button class="btn"><a href="/offer-and-discount/edit/<%=data.id%>"><i class="bi bi-pen"></i></a></button></td>
+              </tr>
+              <% serial_no++ %>
+              <%})%>
+            
+            
+            </tbody>
+          </table>
+       
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<%- include('../layout/footer'); %>
+
+
+<!--  -->

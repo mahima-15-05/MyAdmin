@@ -1,0 +1,85 @@
+<%- include('../layout/header'); %>
+<%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1><b>User Management</b></h1>
+      <nav>
+        
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="d-flex justify-content-end">
+        <a href="/user-management/add"><button class="btn btn-success">Add</button></a>
+        
+    </div>
+      <div class="row">
+
+       
+
+        <table class="table datatable">
+            <thead>
+             
+              <tr>
+                
+                
+                <th>Sr.no</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Email</th>
+                <th scope="col">D.O.B</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Address</th>
+                <th scope="col">Profile Photo</th>
+                <th>Status</th>
+                <!-- <th>Status Change</th> -->
+                <th>Action</th>
+              </tr>
+              
+              
+            </thead>
+            <tbody>
+              <% var reversedData = data.slice().reverse(); %>
+              <% var serial_no = 1%>
+              <%reversedData.forEach(function(data){%>
+              <tr>
+                <td><%= serial_no%></td>
+                <td><%= data.first_name%></td>
+                <td><%= data.last_name%></td>
+                <td><%= data.mobile%></td>
+                <td><%= data.email%></td>
+                <td><%= data.dob%></td>
+                <td><%= data.gender%></td>
+                <td><%- data.address%></td>
+                <td><img src="../.././myUploads/User/<%= data ? data.profile_photo : ''%>" height="80px" width="100px" alt=""></td>
+                
+                <td><% if(data.status==1) {%> Active <%}else{%> Inactive ,<%}%></td>
+
+                <!-- <td><button onclick='updateStatus(`<%=data.id%>`, `<%=data.status%>`,`/user-management/status-upd`)' class="btn btn-primary"><a href="/update-status/<%data.id%>"></a><%= data.status ? 'Deactivate' : 'Activate' %></button></td> -->
+
+                <td>
+                  <button class="btn" onclick='updateStatus(`<%=data.id%>`, `<%=data.status%>`,`/user-management/status-upd`)' ><a href="#"><i class="bi bi-unlock"></i></a></button>
+                  <!-- <button class="btn" onclick="deleteRecord(`<%=data.id%>`, '/user-management/delete')"><a href="/update-status/<%data.id%>"><i class="bi bi-trash"></i></a></button> -->
+                  <button class="btn"><a href="/user-management/edit/<%=data.id%>"><i class="bi bi-pen"></i></a></button>
+                </td>
+              </tr>
+              <% serial_no++ %>
+              <%})%>
+            
+            
+            </tbody>
+          </table>
+       
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<%- include('../layout/footer'); %>
+
+
+<!--  -->

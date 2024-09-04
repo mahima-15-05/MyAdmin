@@ -1,0 +1,167 @@
+<%- include('../layout/header'); %> <%- include('../layout/sidebar'); %>
+
+<main id="main" class="main">
+  <section class="section">
+    <!-- General Form Elements -->
+    <div >
+      <form
+        id="testimonials"
+        action="/user-management/add"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="row mb-3">
+          <div>
+            <label for="first_name" class="col-sm-2 col-form-label"><b>First Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="first_name"
+              type="text"
+              name="first_name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+       
+        <div class="row mb-3">
+          <div>
+            <label for="last_name" class="col-sm-2 col-form-label"><b>Last Name</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="last_name"
+              type="text"
+              name="last_name"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="mobile" class="col-sm-2 col-form-label"><b>Mobile</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="mobile"
+              type="text"
+              name="mobile"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="email" class="col-sm-2 col-form-label"><b>Email</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="email"
+              type="email"
+              name="email"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="dob" class="col-sm-2 col-form-label"><b>DOB</b></label>
+          </div>
+          
+          <div >
+            <input
+              id="dob"
+              type="date"
+              name="dob"
+              required
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="gender" class="col-sm-2 col-form-label"><b>Gender</b></label>
+          </div>
+          
+          <select class="form-control" name="gender" id="gender">
+            <option value="" selected disabled>Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <div class="row mb-3">
+          <div>
+            <label for="address" class="col-sm-2 col-form-label"><b>Address</b></label>
+          </div>
+          
+          <div >
+            <textarea
+              id="address"
+              type="text"
+              name="address"
+              required
+              class="form-control summernote"
+              class="form-control"
+            ></textarea>
+          </div>
+        </div>
+        
+       
+       
+
+        <div class="row mb-3">
+          <div>
+            <label for="profile_photo" class="col-sm-2 col-form-label"><b>Profile Photo</b></label>
+          </div>
+          
+          <div >
+            <input
+              name="profile_photo"
+              accept=".jpg,jpeg,.png"
+              class="form-control"
+              type="file"
+              id="fileInput"
+            />
+          </div>
+        </div>
+       
+
+        <button class="btn btn-success w-20" type="submit">Add</button>
+      </form>
+      <!-- End General Form Elements -->
+    </div>
+  </section>
+</main>
+
+<script>
+
+
+  const HomeBanner = document.getElementById("testimonials");
+  HomeBanner.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData();
+    const fileInput = document.getElementById("fileInput");
+
+    var file = fileInput.files[0];
+    formData.append("profile_photo", file);
+    formData.append("first_name", document.getElementById("first_name").value);
+    formData.append("last_name", document.getElementById("last_name").value);
+    formData.append("mobile", document.getElementById("mobile").value);
+    formData.append("email", document.getElementById("email").value);
+    formData.append("dob", document.getElementById("dob").value);
+    formData.append("gender", document.getElementById("gender").value);
+    formData.append("address", document.getElementById("address").value);
+    ajaxRequest("testimonials", "/user-management/add", "POST", formData);
+  });
+</script>
+<%- include('../layout/footer'); %>
+<script></script>
